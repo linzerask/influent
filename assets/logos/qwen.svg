@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#8B5CF6" stroke="currentColor" stroke-width="6.5" stroke-linejoin="round" stroke-linecap="round">
+  <!-- Official Alibaba Qwen 3D Hexagonal Prism / Cube -->
+  <polygon points="50,12 86,33 86,75 50,96 14,75 14,33"/>
+  <line x1="50" y1="54" x2="86" y2="33"/>
+  <line x1="50" y1="54" x2="50" y2="96"/>
+  <line x1="50" y1="54" x2="14" y2="33"/>
+</svg>
