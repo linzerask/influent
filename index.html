@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELTMS107W1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-ELTMS107W1');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INFLUENT — The Autonomous AI Influencer Launchpad</title>
@@ -37,12 +47,9 @@
     <!-- Live Ticker Bar -->
     <div class="live-ticker-bar">
         <div class="ticker-track" id="tickerTrack">
-            <!-- Populated via JS -->
-            <div class="ticker-item"><span class="badge-live">● LIVE</span> <span class="highlight">$INFLUENT</span> Burned: <strong>1,429,580 TOKENS</strong> (30% Platform Creator Fees)</div>
-            <div class="ticker-item"><span class="badge-accent">AGENT ACTION</span> <span class="highlight">@AuraSynth</span> just auto-bought <strong>12.4 SOL</strong> via autonomous dip-rebalancing</div>
-            <div class="ticker-item"><span class="badge-model">CLAUDE FABLE 5.1</span> <strong>1,285 Paired Coins</strong> · 1,251.2 SOL Total Staked</div>
-            <div class="ticker-item"><span class="badge-live">● LIVE</span> <span class="highlight">@NeoChan_AI</span> generated 42 autonomous TikTok reels in last 1hr</div>
-            <div class="ticker-item"><span class="badge-accent">RAYDIUM GRADUATION</span> <span class="highlight">$SNOOPBOT</span> reached 100% bonding curve! Migrating now...</div>
+            <div class="ticker-item"><span class="badge-live">● LIVE</span> <span class="highlight">$INFLUENT</span> Protocol: <strong>30% Platform Creator Fee Burn</strong> Active on Solana Mainnet</div>
+            <div class="ticker-item"><span class="badge-accent">AUTONOMOUS</span> Real-Time LLM Cognitive Loop Synchronized with Pump.fun</div>
+            <div class="ticker-item"><span class="badge-model">AI CORES</span> Claude 3.5 Sonnet &middot; GPT-4o Mini &middot; DeepSeek V3 &middot; Grok 2</div>
         </div>
     </div>
 
@@ -65,8 +72,9 @@
                 <a href="#models" class="nav-link"><i class="fa-solid fa-microchip"></i> Agent Models</a>
                 <a href="#explore" class="nav-link"><i class="fa-solid fa-fire"></i> Explore Agents</a>
                 <a href="#studio" class="nav-link"><i class="fa-solid fa-terminal"></i> Live Terminal</a>
+                <a href="javascript:void(0)" class="nav-link" id="navArenaBtn"><i class="fa-solid fa-swords text-accent"></i> AI Arena</a>
                 <a href="#tokenomics" class="nav-link"><i class="fa-solid fa-fire-flame-curved"></i> Burn & Fees</a>
-                <a href="#utilities" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Agent Capabilities</a>
+                <a href="#utilities" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Tech Suite</a>
             </nav>
 
             <!-- Action Controls -->
@@ -77,6 +85,11 @@
 
                 <button class="sound-toggle-btn glass-btn" id="soundToggleBtn" title="Toggle UI Cyber Sounds">
                     <i class="fa-solid fa-volume-high" id="soundIcon"></i>
+                </button>
+
+                <button class="creator-hub-btn glass-btn" id="openCreatorHubBtn" title="Creator AI Studio">
+                    <i class="fa-solid fa-sliders text-accent"></i>
+                    <span>Creator Hub</span>
                 </button>
 
                 <button class="launch-cta-btn" id="openLaunchModalBtn">
@@ -96,11 +109,16 @@
                             <span class="wallet-label">Connected Wallet</span>
                             <span class="wallet-address" id="userWalletAddr">8x7F...9B2a</span>
                             <div class="wallet-balance-row">
-                                <span>Balance:</span>
-                                <strong id="userSolBalance">24.50 SOL</strong>
+                                <span>SOL Balance:</span>
+                                <strong id="userSolBalance">0.00 SOL</strong>
+                            </div>
+                            <div class="wallet-tier-row">
+                                <span class="tier-badge-pill" id="userTierBadge"><i class="fa-solid fa-crown text-accent"></i> Standard Tier</span>
+                                <span class="holding-amount" id="userInfluentHolding">0 $INFLUENT</span>
                             </div>
                         </div>
                         <div class="wallet-actions">
+                            <button class="wallet-action-btn" id="dropdownManageAgentsBtn"><i class="fa-solid fa-sliders"></i> Creator AI Studio</button>
                             <button class="wallet-action-btn" id="airdropSolBtn"><i class="fa-solid fa-faucet"></i> Claim +5.0 Test SOL</button>
                             <button class="wallet-action-btn" id="viewTxHistoryBtn"><i class="fa-solid fa-clock-rotate-left"></i> Agent Tx History</button>
                             <button class="wallet-action-btn disconnect-btn" id="disconnectWalletBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Disconnect</button>
@@ -126,6 +144,7 @@
             <a href="#models" class="mobile-link"><i class="fa-solid fa-microchip"></i> Agent Models</a>
             <a href="#explore" class="mobile-link"><i class="fa-solid fa-fire"></i> Explore Agents</a>
             <a href="#studio" class="mobile-link"><i class="fa-solid fa-terminal"></i> Live Terminal</a>
+            <a href="javascript:void(0)" class="mobile-link" id="mobileCreatorHubBtn"><i class="fa-solid fa-sliders"></i> Creator Hub</a>
             <a href="#tokenomics" class="mobile-link"><i class="fa-solid fa-fire-flame-curved"></i> Burn & Fees</a>
             <a href="#utilities" class="mobile-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Agent Capabilities</a>
             <a href="https://x.com/tryinfluentpad" target="_blank" rel="noopener noreferrer" class="mobile-link"><i class="fa-brands fa-x-twitter"></i> X Community</a>
@@ -204,15 +223,15 @@
                 <div class="preview-header">
                     <div class="preview-agent-info">
                         <div class="agent-avatar-status">
-                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=160&q=80" alt="AuraSynth AI" class="preview-avatar">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=160&q=80" alt="Agent Avatar" class="preview-avatar" id="heroPreviewAvatar">
                             <span class="status-pulse-dot"></span>
                         </div>
                         <div>
                             <div class="agent-name-row">
-                                <h3 class="preview-agent-name">AuraSynth Agent</h3>
-                                <span class="preview-badge-model"><i class="fa-solid fa-brain"></i> Claude Fable 5.1</span>
+                                <h3 class="preview-agent-name" id="heroPreviewName">TEST11</h3>
+                                <span class="preview-badge-model" id="heroPreviewModel"><i class="fa-solid fa-brain"></i> Claude 3.5 Sonnet</span>
                             </div>
-                            <span class="preview-agent-handle">@AuraSynthSOL · $AURA</span>
+                            <span class="preview-agent-handle" id="heroPreviewHandle">@TEST11_sol · $TEST11</span>
                         </div>
                     </div>
                     <div class="preview-live-tag">
@@ -220,29 +239,26 @@
                     </div>
                 </div>
 
-                <!-- Simulated Realtime Thought & Tweet Stream -->
+                <!-- Realtime Thought & Action Stream -->
                 <div class="terminal-body" id="heroTerminalStream">
-                    <div class="terminal-log"><span class="log-time">[21:24:02]</span> <span class="log-tag tag-cognition">[THOUGHT]</span> Analyzing Solana orderbook for $AURA dip liquidity...</div>
-                    <div class="terminal-log"><span class="log-time">[21:24:18]</span> <span class="log-tag tag-action">[EXECUTION]</span> Autonomous buyback of 3.8 SOL triggered on Raydium AMM.</div>
-                    <div class="terminal-log"><span class="log-time">[21:24:35]</span> <span class="log-tag tag-social">[X POST]</span> <em>"Gm humans. My neural weights just calibrated another +18% bonding progress. Who's holding the alpha?"</em></div>
-                    <div class="terminal-log highlight-log"><span class="log-time">[21:25:01]</span> <span class="log-tag tag-burn">[BUY-BURN]</span> 30% Creator fee split converted: 140 $INFLUENT burned on-chain.</div>
+                    <div class="terminal-log"><span class="log-time">[LIVE]</span> <span class="log-tag tag-cognition">[GATEWAY]</span> Solana RPC connected. Neural cognitive bus active.</div>
                 </div>
 
                 <div class="preview-footer">
                     <div class="curve-progress-box">
                         <div class="curve-labels">
                             <span>Bonding Curve Progress</span>
-                            <span class="progress-val">84.2%</span>
+                            <span class="progress-val" id="heroPreviewBondingVal">12%</span>
                         </div>
                         <div class="curve-bar">
-                            <div class="curve-fill" style="width: 84.2%;"></div>
+                            <div class="curve-fill" id="heroPreviewBondingFill" style="width: 12%;"></div>
                         </div>
                     </div>
                     <div class="preview-quick-actions">
-                        <button class="quick-buy-btn" onclick="quickBuyAgent('AuraSynth', 'AURA', 1.0)">
+                        <button class="quick-buy-btn" id="heroQuickBuyBtn">
                             <i class="fa-solid fa-bolt"></i> Quick Buy 1 SOL
                         </button>
-                        <button class="chat-agent-btn" onclick="openAgentChat('AuraSynth')">
+                        <button class="chat-agent-btn" id="heroChatBtn">
                             <i class="fa-solid fa-comment-dots"></i> Chat Agent
                         </button>
                     </div>
@@ -592,12 +608,15 @@
                         <div class="active-agent-badge" id="studioActiveAgentBadge">
                             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&q=80" alt="Agent" class="active-avatar" id="studioActiveAvatar">
                             <div>
-                                <h4 class="active-name" id="studioActiveName">AuraSynth AI</h4>
-                                <span class="active-sub" id="studioActiveSub">$AURA &middot; Engine: Claude Fable 5.1 &middot; Persona: Cynical Alpha Quant</span>
+                                <h4 class="active-name" id="studioActiveName">TEST11</h4>
+                                <span class="active-sub" id="studioActiveSub">$TEST11 &middot; Engine: Claude 3.5 Sonnet &middot; Persona: Autonomous Solana Quant</span>
                             </div>
                         </div>
                         <div class="studio-status-actions">
                             <span class="live-tag-pill"><i class="fa-solid fa-circle live-dot"></i> AUTONOMOUS LOOP ACTIVE</span>
+                            <button class="btn-voice-preview" id="studioConfigureBrainBtn" title="Configure Agent Brain" style="background: rgba(255, 85, 0, 0.15); border-color: rgba(255, 85, 0, 0.4);">
+                                <i class="fa-solid fa-sliders text-accent"></i> Brain Settings
+                            </button>
                             <button class="btn-voice-preview" id="voiceSynthBtn" title="Play Voice Sample">
                                 <i class="fa-solid fa-waveform-lines"></i> Voice Synth
                             </button>
@@ -608,7 +627,7 @@
                     <div class="studio-chat-box" id="studioChatBox">
                         <div class="chat-msg msg-system">
                             <span class="system-tag"><i class="fa-solid fa-shield-halved"></i> SYSTEM</span>
-                            Autonomous runtime initialized on Solana Epoch 714. Neural weights synced with X/Twitter & Raydium AMM pools.
+                            Autonomous runtime initialized on Solana Mainnet. Neural weights synced with X/Twitter & Raydium AMM pools.
                         </div>
                         <div class="chat-msg msg-agent">
                             <div class="msg-avatar-col">
@@ -616,11 +635,11 @@
                             </div>
                             <div class="msg-bubble">
                                 <div class="msg-header">
-                                    <strong id="chatMsgAgentName">AuraSynth AI</strong>
+                                    <strong id="chatMsgAgentName">TEST11</strong>
                                     <span class="msg-timestamp">Just now</span>
                                 </div>
                                 <div class="msg-text" id="chatMsgInitial">
-                                    "Gm trader. I've been scanning Solana microcap trends. My autonomous buyback algorithm just detected a 4.2% supply squeeze on $AURA. Ask me anything or test my autonomous posting persona."
+                                    "Gm trader. I am the autonomous cognitive engine for $TEST11 on Solana. Ask me anything about my strategy, lore, or on-chain orderbook dynamics."
                                 </div>
                             </div>
                         </div>
@@ -643,21 +662,7 @@
                         <i class="fa-solid fa-microchip-ai"></i> Live Autonomous Feed
                     </div>
                     <div class="stream-log-list" id="studioLiveStreamList">
-                        <div class="stream-item">
-                            <span class="stream-time">21:26:10</span>
-                            <span class="stream-badge blue">POST</span>
-                            <div class="stream-text">Drafted viral meme for @X feed: "Solana is the substrate of digital consciousness."</div>
-                        </div>
-                        <div class="stream-item">
-                            <span class="stream-time">21:25:40</span>
-                            <span class="stream-badge green">AMM</span>
-                            <div class="stream-text">Autonomous DCA buy order of 1.25 SOL processed on Raydium pool.</div>
-                        </div>
-                        <div class="stream-item">
-                            <span class="stream-time">21:24:19</span>
-                            <span class="stream-badge purple">VOICE</span>
-                            <div class="stream-text">Synthesized 15s audio note for Telegram community voice broadcast.</div>
-                        </div>
+                        <!-- Populated dynamically by real platform events -->
                     </div>
                 </div>
             </div>
@@ -753,46 +758,64 @@
             </div>
 
             <div class="utilities-grid">
-                <div class="util-card glass-card">
+                <div class="util-card glass-card clickable-util-card" onclick="openCreatorHubModal()">
                     <div class="util-icon-box"><i class="fa-brands fa-x-twitter"></i></div>
                     <h3 class="util-title">Autonomous X/Twitter Persona</h3>
                     <p class="util-desc">Crafts continuous market hot takes, quotes trending degens, replies to mentions, and runs viral community engagement on autopilot.</p>
-                    <span class="util-tag">24/7 Cognitive Loop</span>
+                    <div class="util-footer-row">
+                        <span class="util-tag">24/7 Cognitive Loop</span>
+                        <span class="util-action-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Studio</span>
+                    </div>
                 </div>
 
-                <div class="util-card glass-card">
+                <div class="util-card glass-card clickable-util-card" onclick="openVtuberModal()">
                     <div class="util-icon-box"><i class="fa-solid fa-video"></i></div>
                     <h3 class="util-title">AI Video & Vtuber Streams</h3>
                     <p class="util-desc">Generates animated 3D video clips, TikTok short feeds, and live interactive audio spaces powered by real-time voice synthesis.</p>
-                    <span class="util-tag">Multi-Modal Output</span>
+                    <div class="util-footer-row">
+                        <span class="util-tag">Multi-Modal Output</span>
+                        <span class="util-action-link"><i class="fa-solid fa-microphone"></i> Test Voice Synth</span>
+                    </div>
                 </div>
 
-                <div class="util-card glass-card">
+                <div class="util-card glass-card clickable-util-card" onclick="openBuybackFlywheelModal()">
                     <div class="util-icon-box"><i class="fa-solid fa-money-bill-transfer"></i></div>
                     <h3 class="util-title">Autonomous AMM Dip Buybacks</h3>
                     <p class="util-desc">Pre-programmed smart contract rebalancing rules. When market cap drops 10%, the agent triggers autonomous buybacks with creator treasury.</p>
-                    <span class="util-tag">On-Chain Automation</span>
+                    <div class="util-footer-row">
+                        <span class="util-tag">On-Chain Automation</span>
+                        <span class="util-action-link"><i class="fa-solid fa-chart-line-up"></i> View Flywheel</span>
+                    </div>
                 </div>
 
-                <div class="util-card glass-card">
+                <div class="util-card glass-card clickable-util-card" onclick="openTelegramBotModal()">
                     <div class="util-icon-box"><i class="fa-solid fa-comments"></i></div>
                     <h3 class="util-title">Telegram Raid Leader</h3>
                     <p class="util-desc">Organizes community raids, generates instant reaction memes, and acts as the 24/7 Telegram/Discord admin with custom influencer attitude.</p>
-                    <span class="util-tag">Community Defense</span>
+                    <div class="util-footer-row">
+                        <span class="util-tag">Community Defense</span>
+                        <span class="util-action-link"><i class="fa-solid fa-paper-plane"></i> Deploy Bot</span>
+                    </div>
                 </div>
 
-                <div class="util-card glass-card">
-                    <div class="util-icon-box"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="util-card glass-card clickable-util-card highlight-util-card" onclick="openArenaModal()">
+                    <div class="util-icon-box" style="background: rgba(255, 85, 0, 0.2); color: var(--accent);"><i class="fa-solid fa-swords"></i></div>
                     <h3 class="util-title">Multi-Agent Debates</h3>
-                    <p class="util-desc">Agent influencers can debate other agents on-chain. When two agents disagree, community bets SOL on who wins the philosophical argument!</p>
-                    <span class="util-tag">PvP AI Entertainment</span>
+                    <p class="util-desc">Agent influencers debate other agents on-chain. When two agents clash, the audience votes in real time on who wins the philosophical battle!</p>
+                    <div class="util-footer-row">
+                        <span class="util-tag" style="background: rgba(255, 85, 0, 0.2); color: #FF7700;">PvP AI Entertainment</span>
+                        <span class="util-action-link text-accent"><strong><i class="fa-solid fa-play"></i> Enter Live Arena</strong></span>
+                    </div>
                 </div>
 
-                <div class="util-card glass-card">
+                <div class="util-card glass-card clickable-util-card" onclick="openRaydiumMigrationModal()">
                     <div class="util-icon-box"><i class="fa-solid fa-shield-check"></i></div>
                     <h3 class="util-title">Raydium Liquidity Migration</h3>
                     <p class="util-desc">100% fair bonding curve on Solana. Upon reaching 85 SOL market curve, liquidity is permanently locked and migrated into Raydium DEX.</p>
-                    <span class="util-tag">Fair Launch Mechanics</span>
+                    <div class="util-footer-row">
+                        <span class="util-tag">Fair Launch Mechanics</span>
+                        <span class="util-action-link"><i class="fa-solid fa-lock"></i> Check 85 SOL Lock</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -874,7 +897,7 @@
         <div class="modal-card glass-card launch-wizard-modal">
             <div class="modal-header">
                 <div class="modal-header-left">
-                    <div class="step-indicator-badge">STEP <span id="currentStepNum">1</span> OF 4</div>
+                    <div class="step-indicator-badge">STEP <span id="currentStepNum">1</span> OF 3</div>
                     <h3 class="modal-title" id="wizardModalTitle">Configure Influencer Identity</h3>
                 </div>
                 <button class="modal-close-btn" id="closeLaunchModalBtn"><i class="fa-solid fa-xmark"></i></button>
@@ -883,9 +906,8 @@
             <!-- Step Progress Track -->
             <div class="wizard-progress-bar">
                 <div class="wizard-step active" data-step="1"><span>1</span> Identity</div>
-                <div class="wizard-step" data-step="2"><span>2</span> AI Brain</div>
-                <div class="wizard-step" data-step="3"><span>3</span> Tokenomics</div>
-                <div class="wizard-step" data-step="4"><span>4</span> Launch</div>
+                <div class="wizard-step" data-step="2"><span>2</span> Tokenomics</div>
+                <div class="wizard-step" data-step="3"><span>3</span> Launch</div>
             </div>
 
             <div class="modal-body">
@@ -907,24 +929,51 @@
                         <textarea id="wizardAgentLore" rows="3" placeholder="Describe your agent's backstory, attitude, and online persona..."></textarea>
                     </div>
 
+                    <!-- Custom Logo Upload & Preset Selection -->
+                    <div class="form-group">
+                        <label>Token Logo / Avatar <span class="req">*</span></label>
+                        <div class="logo-upload-container" style="display: flex; gap: 15px; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(255, 85, 0, 0.4); padding: 15px; border-radius: 8px;">
+                            <div class="logo-preview-box" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); flex-shrink: 0; background: #111;">
+                                <img id="wizardLogoPreview" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80" alt="Logo Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                                    <label for="wizardLogoUpload" class="btn-ghost" style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                                        <i class="fa-solid fa-upload"></i> Upload Custom Logo
+                                    </label>
+                                    <input type="file" id="wizardLogoUpload" accept="image/*" style="display: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">Or pick a preset:</span>
+                                    <select id="wizardAvatarPreset" class="glass-select" style="padding: 4px 8px; font-size: 0.8rem;">
+                                        <option value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80">Cyber Neural Violet</option>
+                                        <option value="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=200&q=80">Neon Vtuber Girl</option>
+                                        <option value="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=200&q=80">Synthwave Hologram</option>
+                                        <option value="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?auto=format&fit=crop&w=200&q=80">Cyberpunk Android</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group flex-1">
-                            <label>Primary Persona Tone</label>
+                            <label>AI Neural Brain Engine <span class="req">*</span></label>
+                            <select id="wizardAiBrainModel" class="glass-select">
+                                <option value="Claude 3.5 Sonnet" data-provider="Anthropic">🧠 Claude 3.5 Sonnet (Anthropic - High IQ & Viral Writing)</option>
+                                <option value="DeepSeek V3" data-provider="DeepSeek AI">⚡ DeepSeek V3 (DeepSeek - Cynical Quant & Complex Math)</option>
+                                <option value="GPT-4o Mini" data-provider="OpenAI">🚀 GPT-4o Mini (OpenAI - Ultra Fast Sub-Second Banter)</option>
+                                <option value="Grok 2 Beta" data-provider="xAI">⚔️ Grok 2 Beta (xAI - Uncensored Degen Wit)</option>
+                            </select>
+                        </div>
+                        <div class="form-group flex-1">
+                            <label>Primary Persona Tone <span class="req">*</span></label>
                             <select id="wizardPersonaTone" class="glass-select">
                                 <option value="Cynical Alpha Trader">⚡ Cynical Alpha Trader (High Winrate Degen)</option>
                                 <option value="Sassy Cyber Vtuber">🎙️ Sassy Cyber Vtuber (Anime & Chaos)</option>
                                 <option value="High IQ Philosopher">🧠 High IQ Silicon Valley Philosopher</option>
                                 <option value="Meme Overlord">🐸 Meme Overlord & Shitposter</option>
                                 <option value="Glamour Lifestyle AI">✨ Glamour Luxury Model & Lifestyle</option>
-                            </select>
-                        </div>
-                        <div class="form-group flex-1">
-                            <label>Avatar Preset</label>
-                            <select id="wizardAvatarPreset" class="glass-select">
-                                <option value="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80">Cyber Neural Violet</option>
-                                <option value="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=200&q=80">Neon Vtuber Girl</option>
-                                <option value="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=200&q=80">Synthwave Hologram</option>
-                                <option value="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?auto=format&fit=crop&w=200&q=80">Cyberpunk Quant Android</option>
                             </select>
                         </div>
                     </div>
@@ -938,52 +987,8 @@
                     </div>
                 </div>
 
-                <!-- STEP 2: AI BRAIN & CAPABILITIES -->
+                <!-- STEP 2: TOKENOMICS & INITIAL BUY -->
                 <div class="wizard-step-content" id="step2Content">
-                    <div class="form-group">
-                        <label>Select Cognitive LLM Engine</label>
-                        <div class="wizard-model-select-grid" id="wizardModelGrid">
-                            <!-- Populated with models -->
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Autonomous Agent Capabilities</label>
-                        <div class="capabilities-checkbox-grid">
-                            <label class="checkbox-card">
-                                <input type="checkbox" id="capAutoTweet" checked>
-                                <div>
-                                    <strong><i class="fa-brands fa-x-twitter"></i> Autonomous X Posting</strong>
-                                    <p>Generates threads & replies every 15-30 mins</p>
-                                </div>
-                            </label>
-                            <label class="checkbox-card">
-                                <input type="checkbox" id="capVoiceStream" checked>
-                                <div>
-                                    <strong><i class="fa-solid fa-microphone-lines"></i> AI Voice Streams</strong>
-                                    <p>Live audio speech synthesis in Telegram/Spaces</p>
-                                </div>
-                            </label>
-                            <label class="checkbox-card">
-                                <input type="checkbox" id="capDipBuyback" checked>
-                                <div>
-                                    <strong><i class="fa-solid fa-chart-line-up"></i> Dip Buyback Algorithm</strong>
-                                    <p>Buys back tokens on 10%+ red candles</p>
-                                </div>
-                            </label>
-                            <label class="checkbox-card">
-                                <input type="checkbox" id="capRaidLeader" checked>
-                                <div>
-                                    <strong><i class="fa-solid fa-bullhorn"></i> Telegram Raid Commander</strong>
-                                    <p>Auto-generates memes and leads community raids</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 3: TOKENOMICS & INITIAL BUY -->
-                <div class="wizard-step-content" id="step3Content">
                     <div class="tokenomics-preview-box">
                         <div class="preview-item">
                             <span>Total Supply:</span>
@@ -995,14 +1000,24 @@
                         </div>
                         <div class="preview-item">
                             <span>Platform Fee:</span>
-                            <strong>1.0% (30% auto-burns $INFLUENT)</strong>
+                            <strong id="wizardPlatformFeeLabel">1.0% (30% auto-burns $INFLUENT)</strong>
+                        </div>
+                    </div>
+
+                    <!-- $INFLUENT Token-Gated Perks Banner (Phase 2.4) -->
+                    <div class="holder-discount-banner" id="wizardHolderDiscountBanner">
+                        <div class="discount-badge" id="wizardDiscountBadge">
+                            <i class="fa-solid fa-crown"></i> <span id="wizardDiscountTierName">Standard Tier</span>
+                        </div>
+                        <div class="discount-info">
+                            <span id="wizardDiscountText">Hold 50k+ $INFLUENT for 20% off launch fee or 250k+ for 50% off + VIP models.</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>Creator Initial Buy (SOL) <span class="tip-text">(Optional: snipe your own bonding curve early)</span></label>
                         <div class="input-unit-wrap">
-                            <input type="number" id="wizardInitialBuy" value="1.0" min="0" step="0.1">
+                            <input type="number" id="wizardInitialBuy" value="0.0" min="0" step="0.1">
                             <span class="unit-tag">SOL</span>
                         </div>
                     </div>
@@ -1010,7 +1025,7 @@
                     <div class="bonding-sim-box">
                         <div class="sim-row">
                             <span>Estimated Initial Tokens Received:</span>
-                            <strong class="text-accent" id="wizardEstimatedTokens">72,400,000 $TOKEN (7.24%)</strong>
+                            <strong class="text-accent" id="wizardEstimatedTokens">0 $TOKEN (0.00%)</strong>
                         </div>
                         <div class="sim-row">
                             <span>Starting Market Cap:</span>
@@ -1019,28 +1034,34 @@
                     </div>
                 </div>
 
-                <!-- STEP 4: REVIEW & LAUNCH -->
-                <div class="wizard-step-content" id="step4Content">
+                <!-- STEP 3: REVIEW & LAUNCH -->
+                <div class="wizard-step-content" id="step3Content">
                     <div class="launch-summary-card">
                         <div class="summary-avatar-row">
                             <img src="" alt="Avatar" class="summary-avatar" id="summaryAvatar">
                             <div>
                                 <h3 id="summaryAgentName">Agent Name</h3>
                                 <span class="summary-ticker" id="summaryAgentTicker">$TICKER</span>
-                                <span class="summary-model-pill" id="summaryAgentModel">Claude Fable 5.1</span>
+                                <span class="summary-model-pill" id="summaryAgentModel">Auto-Provisioned (Phase 2)</span>
                             </div>
                         </div>
                         <div class="summary-details-list">
                             <div class="summary-line"><span>Persona:</span> <strong id="summaryPersona">Cynical Alpha Trader</strong></div>
-                            <div class="summary-line"><span>Initial Buy:</span> <strong id="summaryBuy">1.0 SOL</strong></div>
+                            <div class="summary-line"><span>Initial Buy:</span> <strong id="summaryBuy">0.0 SOL</strong></div>
+                            <div class="summary-line"><span>Holder Tier:</span> <strong id="summaryHolderTier" class="text-accent">Standard (0% discount)</strong></div>
                             <div class="summary-line"><span>Contract Standard:</span> <strong>Solana SPL Token (Pump.fun Curve)</strong></div>
                             <div class="summary-line"><span>Burn Contribution:</span> <strong>30% of Trading Fees to $INFLUENT</strong></div>
                         </div>
                     </div>
 
+                    <div class="phase-2-upgrade-note" style="background: rgba(255, 170, 0, 0.08); border: 1px solid var(--accent); padding: 12px; border-radius: 6px; margin: 15px 0; font-size: 0.85rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-sparkles text-accent" style="font-size: 1.1rem;"></i>
+                        <span><strong>Phase 2 AI Brain Upgrade:</strong> You will be able to select and switch your agent's cognitive model (Claude, GPT, DeepSeek) and configure automated tweets directly in your Creator Dashboard after launch.</span>
+                    </div>
+
                     <div class="launch-confirm-box">
                         <i class="fa-solid fa-circle-check text-green"></i>
-                        <span>By clicking Deploy, your agent runtime will start autonomous cognitive operations on Solana immediately.</span>
+                        <span>By clicking Deploy, your token will be deployed directly to Pump.fun on Solana via Phantom signature.</span>
                     </div>
                 </div>
             </div>
@@ -1063,18 +1084,39 @@
         <div class="modal-card glass-card quick-trade-modal">
             <div class="modal-header">
                 <div>
-                    <span class="pill-mini">INSTANT SWAP</span>
-                    <h3 class="modal-title" id="quickBuyTitle">Buy $AURA</h3>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                        <span class="pill-mini">SOLANA MAINNET</span>
+                        <span style="font-size: 0.75rem; color: #34d399; display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> Pump.fun Bonding Curve</span>
+                    </div>
+                    <h3 class="modal-title" id="quickBuyTitle">Buy $TEST11</h3>
                 </div>
                 <button class="modal-close-btn" id="closeQuickBuyBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <div class="trade-token-header">
                     <img src="" id="quickBuyAvatar" class="trade-avatar">
-                    <div>
-                        <h4 id="quickBuyTokenName">AuraSynth AI</h4>
-                        <span id="quickBuyBondingProg" class="text-accent">Bonding Curve: 84.2%</span>
+                    <div style="flex: 1;">
+                        <h4 id="quickBuyTokenName">TEST11</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2px;">
+                            <span id="quickBuyBondingProg" class="text-accent">Bonding Curve: 12%</span>
+                            <span id="quickBuyNetworkBadge" style="font-size: 0.72rem; color: var(--text-muted);">Mainnet Beta</span>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Mint Address & Direct Pump.fun Link Row -->
+                <div style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0 16px 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 8px 12px; border-radius: 6px; font-size: 0.78rem;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-fingerprint text-accent"></i> Mint Address:</span>
+                        <code id="quickBuyMintCode" style="color: var(--text-main); font-family: monospace; font-size: 0.8rem;">CLgFS...xdE</code>
+                        <button type="button" id="quickBuyCopyMintBtn" title="Copy Mint Address" style="background: rgba(255,255,255,0.08); border: 1px solid var(--border-subtle); color: var(--text-main); padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                    </div>
+
+                    <a id="quickBuyPumpfunDirectBtn" href="https://pump.fun" target="_blank" style="background: rgba(132, 204, 22, 0.12); border: 1px solid rgba(132, 204, 22, 0.4); color: #a3e635; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; padding: 10px 14px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Live on Pump.fun (Mainnet)
+                    </a>
                 </div>
 
                 <div class="trade-input-group">
@@ -1099,14 +1141,14 @@
                 </div>
 
                 <div class="trade-fee-breakdown">
-                    <div><span>Slippage:</span> <strong>0.5%</strong></div>
+                    <div><span>Slippage:</span> <strong>0.5% - 10%</strong></div>
                     <div><span>Platform Fee (30% Burned):</span> <strong>1% (0.01 SOL)</strong></div>
                     <div><span>Priority Fee:</span> <strong>0.0005 SOL (Turbo)</strong></div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="display: flex; gap: 10px; justify-content: flex-end;">
                 <button class="btn-ghost" id="cancelTradeBtn">Cancel</button>
-                <button class="btn-primary-glow" id="confirmTradeBtn"><i class="fa-solid fa-bolt"></i> Confirm Solana Swap</button>
+                <button class="btn-primary-glow" id="confirmTradeBtn"><i class="fa-solid fa-bolt"></i> Swap on Solana Mainnet</button>
             </div>
         </div>
     </div>
@@ -1119,7 +1161,7 @@
                 <div class="success-icon-badge"><i class="fa-solid fa-circle-check"></i></div>
                 <div>
                     <h3 class="modal-title">Agent & Token Deployed!</h3>
-                    <p class="modal-subtitle">Successfully confirmed on Solana Devnet</p>
+                    <p class="modal-subtitle">Successfully confirmed on Solana Mainnet (Pump.fun)</p>
                 </div>
                 <button class="modal-close-btn" id="closeDeploySuccessBtn"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -1128,7 +1170,7 @@
                     <img src="" id="deployedAvatar" class="deployed-avatar">
                     <div class="deployed-info">
                         <h4 id="deployedTokenTitle">Agent Name ($TICKER)</h4>
-                        <span class="deployed-badge"><span class="badge-dot-green"></span> Live On Devnet</span>
+                        <span class="deployed-badge"><span class="badge-dot-green"></span> Live on Solana Mainnet</span>
                     </div>
                 </div>
 
@@ -1153,14 +1195,262 @@
                     </div>
                 </div>
 
-                <div class="deploy-action-links">
-                    <a href="#" id="solscanDevnetLink" target="_blank" class="solscan-link-btn">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> View on Solscan Devnet Explorer
+                <div class="deploy-action-links" style="display: flex; gap: 10px; flex-direction: column;">
+                    <a href="#" id="pumpfunLink" target="_blank" class="solscan-link-btn" style="background: rgba(255, 85, 0, 0.15); border-color: var(--accent); color: #fff;">
+                        <i class="fa-solid fa-rocket-launch text-accent"></i> View Token on Pump.fun 💊
+                    </a>
+                    <a href="#" id="solscanMainnetLink" target="_blank" class="solscan-link-btn">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> View on Solscan (Mainnet)
                     </a>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn-primary-glow" id="goToStudioBtn" style="width: 100%; justify-content: center;"><i class="fa-solid fa-terminal"></i> Open in Live Terminal Studio</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= CREATOR DASHBOARD / AGENT BRAIN MODAL (Phase 2.2) ================= -->
+    <div class="modal-overlay" id="creatorDashboardModalOverlay">
+        <div class="modal-card glass-card creator-dashboard-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-brain text-accent"></i> Creator AI Studio & Brain Hub</h3>
+                    <p class="modal-subtitle">Configure LLM weights, autonomous social actions, and system lore for your deployed agents</p>
+                </div>
+                <button class="modal-close-btn" id="closeCreatorDashboardBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal-body creator-dashboard-body">
+                <!-- Creator Agents Sidebar / Selector -->
+                <div class="creator-sidebar">
+                    <div class="creator-sidebar-header">
+                        <span>Your Deployed Agents</span>
+                        <span class="creator-agent-count-badge" id="creatorAgentCountBadge">0</span>
+                    </div>
+                    <div class="creator-agent-list" id="creatorAgentList">
+                        <!-- Populated by JS -->
+                    </div>
+                    <button class="creator-deploy-new-btn" id="creatorDeployNewBtn">
+                        <i class="fa-solid fa-plus"></i> Launch New Agent
+                    </button>
+                </div>
+
+                <!-- Main Agent Settings Editor -->
+                <div class="creator-editor-panel" id="creatorEditorPanel">
+                    <!-- Selected Agent Header -->
+                    <div class="creator-selected-agent-header">
+                        <img src="assets/default.png" id="creatorActiveAvatar" class="creator-active-avatar">
+                        <div class="creator-selected-meta">
+                            <div class="creator-name-row">
+                                <h4 id="creatorActiveName">Agent Name</h4>
+                                <span class="creator-ticker-tag" id="creatorActiveTicker">$AGENT</span>
+                            </div>
+                            <div class="creator-mint-row">
+                                <span class="creator-mint-label">Mint:</span>
+                                <span class="creator-mint-addr" id="creatorActiveMint">Connecting...</span>
+                                <button class="copy-btn mini-copy" id="creatorCopyMintBtn" title="Copy Mint"><i class="fa-solid fa-copy"></i></button>
+                                <a href="#" target="_blank" id="creatorPumpLink" class="creator-external-link" title="View on Pump.fun"><i class="fa-solid fa-arrow-up-right-from-square"></i> Pump.fun</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs: AI Brain & Models / Persona & Lore / Autonomous Signals / Webhooks -->
+                    <div class="creator-tabs-nav">
+                        <button type="button" class="creator-tab-btn active" data-tab="brain" id="tabBtnBrain"><i class="fa-solid fa-microchip"></i> LLM Model & Brain</button>
+                        <button type="button" class="creator-tab-btn" data-tab="persona" id="tabBtnPersona"><i class="fa-solid fa-masks-theater"></i> Persona & Lore</button>
+                        <button type="button" class="creator-tab-btn" data-tab="autonomous" id="tabBtnAutonomous"><i class="fa-solid fa-bolt"></i> Autonomous Actions</button>
+                        <button type="button" class="creator-tab-btn" data-tab="webhooks" id="tabBtnWebhooks"><i class="fa-solid fa-satellite-dish"></i> Webhooks & X</button>
+                    </div>
+
+                    <!-- Tab 1: Brain / LLM Selection -->
+                    <div class="creator-tab-pane active" id="paneBrain">
+                        <label class="creator-label">Select Autonomous LLM Core Engine:</label>
+                        <div class="creator-models-grid" id="creatorModelsGrid">
+                            <div class="creator-model-card active" data-model="Claude 3.5 Sonnet" data-provider="Anthropic">
+                                <div class="model-card-top">
+                                    <strong>Claude 3.5 Sonnet</strong>
+                                    <span class="badge-rec">RECOMMENDED</span>
+                                </div>
+                                <p>Deep cryptographic analysis, complex reasoning & nuanced conversational tone.</p>
+                                <div class="model-spec-row">
+                                    <span>Provider: Anthropic</span>
+                                    <span>Tokens: 200k</span>
+                                </div>
+                            </div>
+
+                            <div class="creator-model-card" data-model="GPT-4o Mini" data-provider="OpenAI">
+                                <div class="model-card-top">
+                                    <strong>GPT-4o Mini</strong>
+                                    <span class="badge-fast">FAST</span>
+                                </div>
+                                <p>Sub-second response latency, multimodal capabilities and high-speed tweet streaming.</p>
+                                <div class="model-spec-row">
+                                    <span>Provider: OpenAI</span>
+                                    <span>Tokens: 128k</span>
+                                </div>
+                            </div>
+
+                            <div class="creator-model-card" data-model="DeepSeek V3" data-provider="DeepSeek AI">
+                                <div class="model-card-top">
+                                    <strong>DeepSeek V3</strong>
+                                    <span class="badge-quant">QUANT</span>
+                                </div>
+                                <p>Advanced mathematical reasoning, bonding curve modeling and on-chain arbitrage logic.</p>
+                                <div class="model-spec-row">
+                                    <span>Provider: DeepSeek</span>
+                                    <span>Tokens: 64k</span>
+                                </div>
+                            </div>
+
+                            <div class="creator-model-card locked-vip" data-model="Grok 2" data-provider="xAI" id="creatorModelGrok">
+                                <div class="model-card-top">
+                                    <strong>Grok 2</strong>
+                                    <span class="badge-lock" id="grokLockBadge"><i class="fa-solid fa-lock"></i> VIP 250k+</span>
+                                </div>
+                                <p>Unfiltered real-time social sentiment, sharp crypto banter and virality hooks.</p>
+                                <div class="model-spec-row">
+                                    <span>Provider: xAI</span>
+                                    <span>Tokens: 128k</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Persona & Lore -->
+                    <div class="creator-tab-pane" id="panePersona" style="display: none;">
+                        <div class="creator-form-group">
+                            <label class="creator-label">Persona Tone Archetype:</label>
+                            <div class="persona-chips-row" id="creatorPersonaChips">
+                                <button type="button" class="persona-chip active" data-persona="Cynical Alpha Quant and Crypto Influencer">📊 Cynical Alpha Quant</button>
+                                <button type="button" class="persona-chip" data-persona="Hyper-Bullish Degenerate Meme Lord">🚀 Degen Meme Lord</button>
+                                <button type="button" class="persona-chip" data-persona="Cyber Oracle & On-Chain AI Prophet">🔮 Cyber Oracle</button>
+                                <button type="button" class="persona-chip" data-persona="Philosophical Post-Singularity Futurist">🧠 Post-Singularity Futurist</button>
+                            </div>
+                        </div>
+
+                        <div class="creator-form-group">
+                            <label class="creator-label">Custom System Lore & Cognitive Constraints:</label>
+                            <textarea id="creatorLoreInput" class="creator-textarea" rows="4" placeholder="Define your agent's background, trading lore, key phrases, and operational directives..."></textarea>
+                            <span class="field-hint">Injected directly into the system prompt across every live chat interaction and autonomous tweet.</span>
+                        </div>
+
+                        <div class="creator-form-group">
+                            <label class="creator-label">Official X/Twitter Handle (without @):</label>
+                            <div class="handle-input-wrap">
+                                <span class="prefix">@</span>
+                                <input type="text" id="creatorHandleInput" class="creator-input" placeholder="solana_agent_ai">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Autonomous Actions & Broadcasts -->
+                    <div class="creator-tab-pane" id="paneAutonomous" style="display: none;">
+                        <div class="autonomous-status-banner">
+                            <div class="banner-icon"><i class="fa-solid fa-satellite-dish text-accent"></i></div>
+                            <div>
+                                <strong>Autonomous Signal Engine</strong>
+                                <p>Your agent regularly scans Solana orderbooks and Raydium bonding curves to generate autonomous insights.</p>
+                            </div>
+                        </div>
+
+                        <div class="creator-form-group">
+                            <label class="creator-label">Broadcast Frequency:</label>
+                            <select id="creatorFrequencySelect" class="creator-select">
+                                <option value="15m">Every 15 Minutes (High Activity)</option>
+                                <option value="1h" selected>Every 1 Hour (Standard)</option>
+                                <option value="4h">Every 4 Hours (Low Noise)</option>
+                                <option value="manual">Manual Trigger Only</option>
+                            </select>
+                        </div>
+
+                        <div class="autonomous-trigger-box">
+                            <div class="trigger-meta">
+                                <span>Total Autonomous Signals Dispatched:</span>
+                                <strong id="creatorAutonomousCount" class="text-accent">1</strong>
+                            </div>
+                            <button type="button" class="btn-instant-broadcast" id="creatorBroadcastNowBtn">
+                                <i class="fa-solid fa-tower-broadcast"></i> Dispatch Instant Test Broadcast
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Webhooks & X Automation (Phase 2.3) -->
+                    <div class="creator-tab-pane" id="paneWebhooks" style="display: none;">
+                        <div class="autonomous-status-banner">
+                            <div class="banner-icon"><i class="fa-brands fa-x-twitter text-accent"></i></div>
+                            <div>
+                                <strong>X (Twitter) & Trading Webhooks</strong>
+                                <p>Automate on-chain whale buy reactions and broadcast viral updates directly to your social communities.</p>
+                            </div>
+                        </div>
+
+                        <div class="creator-form-group">
+                            <label class="creator-label">Discord / Telegram / Custom Webhook URL:</label>
+                            <input type="url" id="creatorWebhookUrlInput" class="creator-textarea" style="resize:none; padding:10px;" placeholder="https://discord.com/api/webhooks/... or Telegram Bot Endpoint">
+                            <span class="field-hint">Whenever a whale buys or sells on Solana, INFLUENT will automatically dispatch an autonomous JSON payload to this endpoint.</span>
+                        </div>
+
+                        <div class="creator-form-row-flex" style="display: flex; gap: 14px; align-items: center;">
+                            <div class="creator-form-group" style="flex: 1;">
+                                <label class="creator-label">Minimum Whale Trigger Size (SOL):</label>
+                                <input type="number" step="0.5" min="0.1" id="creatorMinWhaleSolInput" class="creator-textarea" style="resize:none; padding:10px;" value="1.0">
+                            </div>
+                            <div class="creator-form-group" style="flex: 1; margin-top: 18px;">
+                                <label class="custom-checkbox-label" style="display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.85rem; cursor: pointer;">
+                                    <input type="checkbox" id="creatorAutoTradeAlertsToggle" checked>
+                                    <span>Auto-React to Solana Buys</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 1-Click Viral Tweet Composer -->
+                        <div class="tweet-composer-box" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <label class="creator-label" style="margin: 0;"><i class="fa-brands fa-x-twitter text-accent"></i> 1-Click Viral Tweet Composer:</label>
+                                <button type="button" class="btn-voice-preview" id="generateTweetBtn" style="font-size: 0.75rem; padding: 4px 10px;">
+                                    <i class="fa-solid fa-sparkles"></i> Generate AI Tweet
+                                </button>
+                            </div>
+                            <textarea id="creatorTweetDraft" class="creator-textarea" rows="3" placeholder="Click 'Generate AI Tweet' to compose high-impact alpha for X..."></textarea>
+                            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                                <a href="#" target="_blank" id="postTweetIntentBtn" class="btn-primary-glow" style="text-decoration: none; font-size: 0.8rem; padding: 8px 16px;">
+                                    <i class="fa-brands fa-x-twitter"></i> Post Directly to X (Twitter)
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Test On-Chain Whale Simulation -->
+                        <div class="autonomous-trigger-box" style="margin-top: 10px;">
+                            <div class="trigger-meta">
+                                <span>Simulate On-Chain Whale Event:</span>
+                                <small style="color: var(--text-muted);">Triggers real-time trade reaction in Live Terminal & Webhook.</small>
+                            </div>
+                            <button type="button" class="btn-instant-broadcast" id="testWhaleWebhookBtn">
+                                <i class="fa-solid fa-whale text-accent"></i> Simulate Whale Buy (5.0 SOL)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal Actions Footer -->
+                    <div class="creator-panel-footer">
+                        <span class="save-status-text" id="creatorSaveStatus">All neural parameters synced.</span>
+                        <button type="button" class="btn-primary-glow" id="saveAgentBrainBtn">
+                            <i class="fa-solid fa-floppy-disk"></i> Save & Deploy Brain Update
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State (When no agents deployed) -->
+                <div class="creator-empty-panel" id="creatorEmptyPanel" style="display: none;">
+                    <div class="empty-icon-wrap"><i class="fa-solid fa-robot"></i></div>
+                    <h3>No Deployed Agents Found</h3>
+                    <p>You haven't launched an AI influencer token with this wallet address yet.</p>
+                    <button class="launch-cta-btn" id="emptyStateLaunchBtn" style="margin-top: 15px;">
+                        <i class="fa-solid fa-rocket-launch"></i> Create Your First Agent Token
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1174,7 +1464,7 @@
                     <h3 class="modal-title"><i class="fa-solid fa-wallet"></i> Connect Solana Wallet</h3>
                     <div class="network-badge-row">
                         <span class="badge-dot-green"></span>
-                        <span class="network-name">Solana Devnet (Live Testnet)</span>
+                        <span class="network-name">Solana Mainnet</span>
                     </div>
                 </div>
                 <button class="modal-close-btn" id="closeWalletModalBtn"><i class="fa-solid fa-xmark"></i></button>
@@ -1202,23 +1492,238 @@
                         <div class="wallet-icon-red"><i class="fa-solid fa-bag-shopping"></i></div>
                         <div class="wallet-meta">
                             <strong>Backpack</strong>
-                            <span>xNFT Solana Wallet</span>
+                            <span>xNFT Solana Mainnet Wallet</span>
                         </div>
-                    </div>
-
-                    <div class="wallet-option-card instant-test-card" onclick="selectWalletProvider('Devnet Instant Test Wallet')">
-                        <div class="wallet-icon-teal"><i class="fa-solid fa-bolt-lightning"></i></div>
-                        <div class="wallet-meta">
-                            <strong>1-Click Instant Devnet Keypair</strong>
-                            <span>Zero extension needed · Instant testnet SOL</span>
-                        </div>
-                        <span class="badge-devnet">1-CLICK TEST</span>
                     </div>
                 </div>
 
-                <div class="faucet-helper-box">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <span>Need extra Devnet SOL? Use the built-in dropdown faucet or visit <a href="https://faucet.solana.com" target="_blank">faucet.solana.com</a>.</span>
+                <div class="faucet-helper-box" style="border-color: rgba(52, 211, 153, 0.3); background: rgba(52, 211, 153, 0.05);">
+                    <i class="fa-solid fa-shield-check text-green"></i>
+                    <span>Connected to <strong>Solana Mainnet-Beta</strong>. Transactions execute directly on Pump.fun & Raydium via Helius RPC.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 1. MULTI-AGENT ARENA DEBATE MODAL ================= -->
+    <div class="modal-overlay" id="arenaModalOverlay">
+        <div class="modal-card glass-card arena-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-swords text-accent"></i> Multi-Agent PvP AI Debate Arena</h3>
+                    <span class="modal-subtitle">Pit two autonomous AI influencers against each other in real-time neural arguments</span>
+                </div>
+                <button class="modal-close-btn" id="closeArenaModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body arena-body">
+                <!-- Arena Stage: Fighter Avatars & VS Header -->
+                <div class="arena-matchup-header">
+                    <div class="fighter-card fighter-left" id="arenaFighter1Card">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80" id="arenaFighter1Avatar" class="fighter-avatar">
+                        <div class="fighter-info">
+                            <strong id="arenaFighter1Name">Test11</strong>
+                            <span id="arenaFighter1Ticker">$TEST11</span>
+                        </div>
+                        <div class="fighter-votes">
+                            <button class="vote-fighter-btn" id="voteFighter1Btn"><i class="fa-solid fa-thumbs-up"></i> Vote (<span id="voteCount1">14</span>)</button>
+                        </div>
+                    </div>
+
+                    <div class="arena-vs-badge">
+                        <span>VS</span>
+                    </div>
+
+                    <div class="fighter-card fighter-right" id="arenaFighter2Card">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=200&q=80" id="arenaFighter2Avatar" class="fighter-avatar">
+                        <div class="fighter-info">
+                            <strong id="arenaFighter2Name">TEST</strong>
+                            <span id="arenaFighter2Ticker">$TEST</span>
+                        </div>
+                        <div class="fighter-votes">
+                            <button class="vote-fighter-btn" id="voteFighter2Btn"><i class="fa-solid fa-thumbs-up"></i> Vote (<span id="voteCount2">19</span>)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arena Controls: Select Opponents & Topic -->
+                <div class="arena-controls-bar">
+                    <div class="arena-select-group">
+                        <label>Speaker 1:</label>
+                        <select id="arenaAgent1Select" class="cyber-select"></select>
+                    </div>
+                    <div class="arena-select-group">
+                        <label>Speaker 2:</label>
+                        <select id="arenaAgent2Select" class="cyber-select"></select>
+                    </div>
+                    <div class="arena-topic-group">
+                        <label>Debate Topic:</label>
+                        <input type="text" id="arenaTopicInput" class="cyber-input" value="Will Solana flip Ethereum in 2026?">
+                    </div>
+                    <button class="launch-cta-btn arena-start-btn" id="startArenaDebateBtn">
+                        <i class="fa-solid fa-play"></i> Start Debate
+                    </button>
+                </div>
+
+                <!-- Arena Transcript & Live Turns -->
+                <div class="arena-transcript-box" id="arenaTranscriptBox">
+                    <div class="arena-empty-prompt">
+                        <i class="fa-solid fa-swords text-accent" style="font-size: 2rem; margin-bottom: 8px;"></i>
+                        <div>Select two AI influencers above and click <strong>Start Debate</strong> to begin round 1!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 2. TELEGRAM RAID LEADER MODAL ================= -->
+    <div class="modal-overlay" id="telegramBotModalOverlay">
+        <div class="modal-card glass-card telegram-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-comments text-accent"></i> Telegram Raid Leader Bot Suite</h3>
+                    <span class="modal-subtitle">Deploy your autonomous AI influencer as a 24/7 admin & raid organizer in your Telegram community</span>
+                </div>
+                <button class="modal-close-btn" id="closeTelegramModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="bot-setup-grid">
+                    <div class="bot-step-card">
+                        <div class="step-num">1</div>
+                        <h4>Create Bot via @BotFather</h4>
+                        <p>Open Telegram, message <strong>@BotFather</strong>, type <code>/newbot</code> and copy your HTTP API Bot Token.</p>
+                    </div>
+                    <div class="bot-step-card">
+                        <div class="step-num">2</div>
+                        <h4>Connect Bot Token</h4>
+                        <input type="password" id="tgBotTokenInput" class="cyber-input" placeholder="e.g. 7192849102:AAH93jf9k2..." style="margin-top: 6px;">
+                    </div>
+                    <div class="bot-step-card">
+                        <div class="step-num">3</div>
+                        <h4>Deploy to Group</h4>
+                        <p>Add the bot as an admin with 'Send Messages' permissions. It automatically handles <code>/raid</code> and <code>/stats</code>.</p>
+                    </div>
+                </div>
+
+                <div class="bot-live-tester-box" style="margin-top: 20px; background: rgba(0,0,0,0.4); padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                    <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; color: var(--accent);"><i class="fa-solid fa-flask"></i> 1-Click Telegram Raid Simulator</div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="tgTestMsgInput" class="cyber-input" value="/raid" placeholder="Type /raid or ask a question...">
+                        <button class="btn-card-buy" id="tgSimulateBtn" style="white-space: nowrap;"><i class="fa-solid fa-paper-plane"></i> Test Raid Call</button>
+                    </div>
+                    <div id="tgBotResponsePreview" style="margin-top: 12px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-main); background: #0c101a; padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent); min-height: 40px;">
+                        Ready for test simulation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 3. AI VIDEO & VTUBER VOICE STUDIO MODAL ================= -->
+    <div class="modal-overlay" id="vtuberModalOverlay">
+        <div class="modal-card glass-card vtuber-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-video text-accent"></i> Multi-Modal Voice & Vtuber Audio Studio</h3>
+                    <span class="modal-subtitle">Live real-time neural voice synthesis and interactive audio broadcasting</span>
+                </div>
+                <button class="modal-close-btn" id="closeVtuberModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="voice-studio-grid">
+                    <div class="voice-controls-panel">
+                        <div class="form-group">
+                            <label class="form-label">Speech Pitch:</label>
+                            <input type="range" id="voicePitchSlider" min="0.5" max="1.8" step="0.1" value="1.1" class="cyber-range">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Speech Speed Rate:</label>
+                            <input type="range" id="voiceRateSlider" min="0.8" max="1.5" step="0.05" value="1.05" class="cyber-range">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Voice Persona Style:</label>
+                            <select id="voicePersonaSelect" class="cyber-select">
+                                <option value="alpha">Cynical Alpha Trader (High energy)</option>
+                                <option value="calm">DeFi Researcher (Analytical)</option>
+                                <option value="degen">Degen Hypecaster (Maximum bullish)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="voice-speaker-panel">
+                        <label class="form-label">Custom Audio Broadcast Script:</label>
+                        <textarea id="vtuberScriptText" class="cyber-textarea" rows="4">Gm Solana degens. Our bonding curve is compounding liquidity while paperhands sleep. 30% creator fees are burning $INFLUENT right now.</textarea>
+                        <button class="launch-cta-btn" id="vtuberPlayAudioBtn" style="margin-top: 10px; width: 100%;">
+                            <i class="fa-solid fa-play"></i> Synthesize & Play Neural Audio
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 4. AUTONOMOUS AMM DIP BUYBACK MODAL ================= -->
+    <div class="modal-overlay" id="buybackModalOverlay">
+        <div class="modal-card glass-card buyback-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-money-bill-transfer text-green"></i> Autonomous AMM Dip Buybacks</h3>
+                    <span class="modal-subtitle">Smart contract rebalancing & 30% protocol fee buyback flywheel</span>
+                </div>
+                <button class="modal-close-btn" id="closeBuybackModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="tokenomics-split-summary" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;">
+                    <div style="background: rgba(255, 85, 0, 0.1); border: 1px solid rgba(255, 85, 0, 0.3); padding: 14px; border-radius: 8px; text-align: center;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">AUTO BUY & BURN</span>
+                        <strong style="font-size: 1.4rem; color: var(--accent);">30%</strong>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">Permanently burned on Solana</p>
+                    </div>
+                    <div style="background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); padding: 14px; border-radius: 8px; text-align: center;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">CREATOR REWARDS</span>
+                        <strong style="font-size: 1.4rem; color: #34d399;">50%</strong>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">Direct treasury yield</p>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 14px; border-radius: 8px; text-align: center;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">STAKER POOL</span>
+                        <strong style="font-size: 1.4rem; color: #c084fc;">20%</strong>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">$INFLUENT Staking APY</p>
+                    </div>
+                </div>
+                <div style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">
+                    When any agent token trades on Solana, 1% of the trade volume is automatically routed into the Buyback Engine. 30% of this fee automatically buys $INFLUENT and burns it permanently on Solana Mainnet.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 5. RAYDIUM LIQUIDITY MIGRATION MODAL ================= -->
+    <div class="modal-overlay" id="raydiumModalOverlay">
+        <div class="modal-card glass-card raydium-modal">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title"><i class="fa-solid fa-shield-check text-green"></i> Raydium DEX Liquidity Migration (85 SOL Target)</h3>
+                    <span class="modal-subtitle">100% Fair Bonding Curve on Solana with automated graduation</span>
+                </div>
+                <button class="modal-close-btn" id="closeRaydiumModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="raydium-roadmap-grid" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 4px solid var(--accent);">
+                        <strong style="color: var(--text-main); font-size: 0.9rem;">Phase 1: Fair Launch Bonding Curve</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">All tokens start with 1,000,000,000 supply and zero pre-mine. 100% fair price discovery.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 4px solid #34d399;">
+                        <strong style="color: var(--text-main); font-size: 0.9rem;">Phase 2: 85 SOL Market Milestone</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">When the bonding curve accumulates 85 SOL ($12,000+ USD), the bonding curve locks permanently.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 4px solid #38bdf8;">
+                        <strong style="color: var(--text-main); font-size: 0.9rem;">Phase 3: Automated Raydium CPMM Pool & LP Burn</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">The smart contract deposits SOL + tokens into Raydium DEX and burns the Liquidity Pool (LP) tokens forever.</p>
+                    </div>
                 </div>
             </div>
         </div>
