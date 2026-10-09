@@ -623,37 +623,71 @@
                         </div>
                     </div>
 
-                    <!-- Terminal Chat Logs & Messages -->
-                    <div class="studio-chat-box" id="studioChatBox">
-                        <div class="chat-msg msg-system">
-                            <span class="system-tag"><i class="fa-solid fa-shield-halved"></i> SYSTEM</span>
-                            Autonomous runtime initialized on Solana Mainnet. Neural weights synced with X/Twitter & Raydium AMM pools.
-                        </div>
-                        <div class="chat-msg msg-agent">
-                            <div class="msg-avatar-col">
-                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=80&q=80" class="msg-mini-avatar" id="chatMsgAvatar">
-                            </div>
-                            <div class="msg-bubble">
-                                <div class="msg-header">
-                                    <strong id="chatMsgAgentName">TEST11</strong>
-                                    <span class="msg-timestamp">Just now</span>
-                                </div>
-                                <div class="msg-text" id="chatMsgInitial">
-                                    "Gm trader. I am the autonomous cognitive engine for $TEST11 on Solana. Ask me anything about my strategy, lore, or on-chain orderbook dynamics."
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Studio Mode Switcher: Chat Terminal vs Candlestick Chart -->
+                    <div class="studio-mode-switcher">
+                        <button class="studio-mode-tab active" id="studioModeChatTab" onclick="switchStudioView('chat')">
+                            <i class="fa-solid fa-comments"></i> Neural Chat Terminal
+                        </button>
+                        <button class="studio-mode-tab" id="studioModeChartTab" onclick="switchStudioView('chart')">
+                            <i class="fa-solid fa-chart-candlestick text-accent"></i> 📈 Live Price Chart
+                        </button>
                     </div>
 
-                    <!-- Chat Input Field -->
-                    <form class="studio-input-form" id="studioChatForm">
-                        <div class="input-glow-wrapper">
-                            <input type="text" id="studioUserInput" placeholder="Prompt this AI influencer agent (e.g. 'What is your next tweet?' or 'Analyze $SOL')..." autocomplete="off">
-                            <button type="submit" class="studio-send-btn" id="studioSendBtn">
-                                <i class="fa-solid fa-paper-plane-top"></i>
-                            </button>
+                    <!-- VIEW 1: Terminal Chat View -->
+                    <div class="studio-view-pane" id="studioChatPane">
+                        <!-- Terminal Chat Logs & Messages -->
+                        <div class="studio-chat-box" id="studioChatBox">
+                            <div class="chat-msg msg-system">
+                                <span class="system-tag"><i class="fa-solid fa-shield-halved"></i> SYSTEM</span>
+                                Autonomous runtime initialized on Solana Mainnet. Neural weights synced with X/Twitter & Raydium AMM pools.
+                            </div>
+                            <div class="chat-msg msg-agent">
+                                <div class="msg-avatar-col">
+                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=80&q=80" class="msg-mini-avatar" id="chatMsgAvatar">
+                                </div>
+                                <div class="msg-bubble">
+                                    <div class="msg-header">
+                                        <strong id="chatMsgAgentName">TEST11</strong>
+                                        <span class="msg-timestamp">Just now</span>
+                                    </div>
+                                    <div class="msg-text" id="chatMsgInitial">
+                                        "Gm trader. I am the autonomous cognitive engine for $TEST11 on Solana. Ask me anything about my strategy, lore, or on-chain orderbook dynamics."
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+
+                        <!-- Chat Input Field -->
+                        <form class="studio-input-form" id="studioChatForm">
+                            <div class="input-glow-wrapper">
+                                <input type="text" id="studioUserInput" placeholder="Prompt this AI influencer agent (e.g. 'What is your next tweet?' or 'Analyze $SOL')..." autocomplete="off">
+                                <button type="submit" class="studio-send-btn" id="studioSendBtn">
+                                    <i class="fa-solid fa-paper-plane-top"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- VIEW 2: Live Candlestick Chart (Dexscreener Embed) -->
+                    <div class="studio-view-pane" id="studioChartPane" style="display: none;">
+                        <div class="chart-header-bar">
+                            <div class="chart-coin-info">
+                                <span class="chart-badge"><i class="fa-solid fa-circle live-dot"></i> DEXSCREENER SOLANA LIVE</span>
+                                <span class="chart-mint-label" id="studioChartMintLabel">Contract: -</span>
+                            </div>
+                            <div class="chart-actions">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-chart-external" id="studioDexscreenerLink">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Dexscreener
+                                </a>
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-chart-external btn-pump-ext" id="studioPumpLink">
+                                    💊 Pump.fun
+                                </a>
+                            </div>
+                        </div>
+                        <div class="chart-iframe-wrapper">
+                            <iframe id="studioDexscreenerIframe" src="" title="Live Solana Price Chart" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right: Live Agent Action Log Stream -->

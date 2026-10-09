@@ -569,6 +569,63 @@ function updateStudioActiveAgent() {
     if (chatInitial) {
         chatInitial.innerText = `"Gm trader. My neural loop is calibrated on Solana. Ask me anything or see my next autonomous move."`;
     }
+
+    updateStudioChart();
+}
+
+function switchStudioView(view) {
+    const chatPane = document.getElementById('studioChatPane');
+    const chartPane = document.getElementById('studioChartPane');
+    const chatTab = document.getElementById('studioModeChatTab');
+    const chartTab = document.getElementById('studioModeChartTab');
+
+    if (view === 'chart') {
+        if (chatPane) chatPane.style.display = 'none';
+        if (chartPane) chartPane.style.display = 'flex';
+        if (chatTab) chatTab.classList.remove('active');
+        if (chartTab) chartTab.classList.add('active');
+        updateStudioChart();
+    } else {
+        if (chatPane) chatPane.style.display = 'flex';
+        if (chartPane) chartPane.style.display = 'none';
+        if (chatTab) chatTab.classList.add('active');
+        if (chartTab) chartTab.classList.remove('active');
+    }
+    if (typeof audio !== 'undefined' && audio.playClick) audio.playClick();
+}
+window.switchStudioView = switchStudioView;
+
+function updateStudioChart() {
+    const agent = AppState.activeChatAgent;
+    if (!agent) return;
+
+    const iframe = document.getElementById('studioDexscreenerIframe');
+    const mintLabel = document.getElementById('studioChartMintLabel');
+    const dexscreenerLink = document.getElementById('studioDexscreenerLink');
+    const pumpLink = document.getElementById('studioPumpLink');
+
+    const mint = (agent.mintAddress && agent.mintAddress.length > 20) 
+        ? agent.mintAddress 
+        : 'So11111111111111111111111111111111111111112';
+
+    if (mintLabel) {
+        mintLabel.innerText = agent.mintAddress ? `Contract: ${agent.mintAddress.slice(0,6)}...${agent.mintAddress.slice(-4)}` : `Token: $${agent.ticker}`;
+    }
+
+    if (iframe) {
+        const targetSrc = `https://dexscreener.com/solana/${mint}?embed=1&theme=dark&trades=0&info=0`;
+        if (iframe.src !== targetSrc) {
+            iframe.src = targetSrc;
+        }
+    }
+
+    if (dexscreenerLink) {
+        dexscreenerLink.href = `https://dexscreener.com/solana/${mint}`;
+    }
+
+    if (pumpLink) {
+        pumpLink.href = agent.mintAddress ? `https://pump.fun/coin/${agent.mintAddress}` : `https://pump.fun/board`;
+    }
 }
 
 async function handleUserChat(userPrompt) {
